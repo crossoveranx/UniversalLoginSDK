@@ -1,5 +1,4 @@
 import {utils} from 'ethers';
-import {deployContract} from 'ethereum-waffle';
 import {TEST_ACCOUNT_ADDRESS, computeGasData, EMPTY_DATA} from '@universal-login/commons';
 import {deployFactory} from '@universal-login/contracts';
 import {encodeFunction} from '@universal-login/contracts/testutils';
