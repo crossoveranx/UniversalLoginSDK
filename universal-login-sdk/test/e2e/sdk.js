@@ -5,7 +5,7 @@ import {solidity, createFixtureLoader} from 'ethereum-waffle';
 import {utils, Wallet} from 'ethers';
 import Proxy from '@universal-login/contracts/build/WalletProxy.json';
 import basicSDK, {transferMessage} from '../fixtures/basicSDK';
-import {signRelayerRequest} from '@universal-login/commons';
+import {signRelayerRequest, GAS_BASE} from '@universal-login/commons';
 import UniversalLoginSDK from '../../lib/api/sdk';
 
 chai.use(solidity);
@@ -90,8 +90,7 @@ describe('E2E: SDK', async () => {
       const gasData = 8720;
       const notEnoughGasLimit = 100;
       message = {...message, gasLimit: gasData + notEnoughGasLimit};
-      const {waitToBeMined} = await sdk.execute(message, privateKey);
-      await expect(waitToBeMined()).to.be.eventually.rejectedWith('Error: Not enough gas');
+      await expect(sdk.execute(message, privateKey)).to.be.eventually.rejectedWith(`Insufficient Gas. gasLimit should be greater than ${GAS_BASE}`);
     });
   });
 
